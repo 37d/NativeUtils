@@ -17,8 +17,8 @@ public class NativeUtils extends CordovaPlugin{
 	private static final String TAG = "NativeUtils";
 	
 	public static final String ACTION_GPS_STATE = "getGPSState";
-	public static final String ACTION_NAV_TO_GPS_SETTINGS = "navToGPSSettings";
-	public static final String ACTION_REQUIRE_GPS = "requireGPS";
+	//public static final String ACTION_NAV_TO_GPS_SETTINGS = "navToGPSSettings";
+	//public static final String ACTION_REQUIRE_GPS = "requireGPS";
 	
 	public static final String ENABLED = "enabled";
 	public static final String DISABLED = "disabled";
@@ -41,15 +41,15 @@ public class NativeUtils extends CordovaPlugin{
 	        }else{
                  Log.e(TAG, "GPS DISABLED");
 	        	Toast.makeText(myActivity, "GPS is Not Enabled on your device", Toast.LENGTH_SHORT).show();
-	            //showGPSDisabledAlertToUser();
+	            showGPSDisabledAlertToUser();
 	        	result = true;
 	        }
 		}
 		
 		return result;
 	}
-	/*private void showGPSDisabledAlertToUser(){
-		Activity myActivity = this.cordova.getActivity();
+	private void showGPSDisabledAlertToUser(){
+		final Activity myActivity = this.cordova.getActivity();
 		
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myActivity);
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
@@ -59,7 +59,7 @@ public class NativeUtils extends CordovaPlugin{
             public void onClick(DialogInterface dialog, int id){
                 Intent callGPSSettingIntent = new Intent(
                         android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(callGPSSettingIntent);
+                myActivity.startActivity(callGPSSettingIntent);
             }
         });
         alertDialogBuilder.setNegativeButton("Cancel",
@@ -70,5 +70,5 @@ public class NativeUtils extends CordovaPlugin{
         });
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-    }*/
+    }
 }
