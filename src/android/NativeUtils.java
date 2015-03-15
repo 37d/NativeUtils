@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class NativeUtils extends CordovaPlugin{
 	private static final String TAG = "NativeUtils";
 	
-	public static final String ACTION_GPS_STATE = "gpsState";
+	public static final String ACTION_GPS_STATE = "getGPSState";
 	public static final String ACTION_NAV_TO_GPS_SETTINGS = "navToGPSSettings";
 	public static final String ACTION_REQUIRE_GPS = "requireGPS";
 	
@@ -28,7 +28,7 @@ public class NativeUtils extends CordovaPlugin{
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 		Log.e(TAG, "Executing Action: " + action + " With Data: " + data);
 		
-		Activity myActivity = this.cordova.getActivity();
+		/*Activity myActivity = this.cordova.getActivity();
 		Boolean result = false;
 		
 		if(ACTION_REQUIRE_GPS.equalsIgnoreCase(action)) {
@@ -42,7 +42,7 @@ public class NativeUtils extends CordovaPlugin{
 	            //showGPSDisabledAlertToUser();
 	        	result = true;
 	        }
-		}
+		}*/
 		
 		return result;
 	}

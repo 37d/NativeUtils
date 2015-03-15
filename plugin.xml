@@ -14,7 +14,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="NativeUtils">
-                <param name="android-package" value="org.flybuy.cordova.nativeutils" />
+                <param name="android-package" value="org.flybuy.nativeutils" />
             </feature>
         </config-file>
 

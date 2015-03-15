@@ -6,7 +6,7 @@ var NativeUtils = {
 			success || function() {},
 			failure || function() {},
 			'NativeUtils',
-			'getGPState',
+			'getGPSState',
 			[]
 			);
 	}
