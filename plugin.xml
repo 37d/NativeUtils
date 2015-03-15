@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="org.flybuy.cordova.native-utils"
+        version="0.0.1">
+    <name>NativeUtils</name>
+    <description>Native Utilities For PhoneGap</description>
+    <license>Apache 2.0</license>
+    <keywords>gps, utils, phonegap</keywords>
+    <js-module src="www/NativeUtils.js" name="NativeUtils">
+        <clobbers target="window.plugins.nativeUtils" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="NativeUtils">
+                <param name="android-package" value="org.flybuy.cordova.nativeutils" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+        
+        <source-file src="src/android/NativeUtils" target-dir="src/org/flybuy/NativeUtils" />
+
+    </platform>
+
+    <!--<platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Device">
+                <param name="ios-package" value="CDVDevice"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/CDVDevice.h" />
+        <source-file src="src/ios/CDVDevice.m" />
+    </platform>-->
+
+</plugin>
