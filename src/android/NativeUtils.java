@@ -30,13 +30,16 @@ public class NativeUtils extends CordovaPlugin{
 		Boolean result = false;
 		Activity myActivity = this.cordova.getActivity();
 		
-		if(ACTION_REQUIRE_GPS.equalsIgnoreCase(action)) {
+		if(ACTION_GPS_STATE.equalsIgnoreCase(action)) {
+            Log.e(TAG, "Getting GPS State");
 			locationManager = (LocationManager) myActivity.getSystemService(Context.LOCATION_SERVICE);
 			
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                Log.e(TAG, "GPS ENABLED");
 	            Toast.makeText(myActivity, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
 	            result = true;
 	        }else{
+                 Log.e(TAG, "GPS DISABLED");
 	        	Toast.makeText(myActivity, "GPS is Not Enabled on your device", Toast.LENGTH_SHORT).show();
 	            //showGPSDisabledAlertToUser();
 	        	result = true;
