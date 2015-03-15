@@ -28,7 +28,7 @@ public class NativeUtils extends CordovaPlugin{
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 		Log.e(TAG, "Executing Action: " + action + " With Data: " + data);
 		Boolean result = false;
-		/*Activity myActivity = this.cordova.getActivity();
+		Activity myActivity = this.cordova.getActivity();
 		
 		if(ACTION_REQUIRE_GPS.equalsIgnoreCase(action)) {
 			locationManager = (LocationManager) myActivity.getSystemService(Context.LOCATION_SERVICE);
@@ -41,7 +41,7 @@ public class NativeUtils extends CordovaPlugin{
 	            //showGPSDisabledAlertToUser();
 	        	result = true;
 	        }
-		}*/
+		}
 		
 		return result;
 	}
