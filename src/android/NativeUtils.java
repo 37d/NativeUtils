@@ -1,4 +1,4 @@
-package com.flybuy.cordova.nativeutils;
+package org.flybuy.nativeutils;
 
 import org.apache.cordova.*;
 
