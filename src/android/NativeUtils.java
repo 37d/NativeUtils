@@ -27,9 +27,8 @@ public class NativeUtils extends CordovaPlugin{
 	
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 		Log.e(TAG, "Executing Action: " + action + " With Data: " + data);
-		
-		/*Activity myActivity = this.cordova.getActivity();
 		Boolean result = false;
+		/*Activity myActivity = this.cordova.getActivity();
 		
 		if(ACTION_REQUIRE_GPS.equalsIgnoreCase(action)) {
 			locationManager = (LocationManager) myActivity.getSystemService(Context.LOCATION_SERVICE);
