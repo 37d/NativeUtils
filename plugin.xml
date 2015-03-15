@@ -23,7 +23,7 @@
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
         </config-file>
         
-        <source-file src="src/android/NativeUtils" target-dir="src/org/flybuy/NativeUtils" />
+        <source-file src="src/android/NativeUtils.java" target-dir="src/org/flybuy/NativeUtils" />
 
     </platform>
 
