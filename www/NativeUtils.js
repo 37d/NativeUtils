@@ -5,7 +5,7 @@ var NativeUtils = {
 
 		var dialog = (config && config.dialog) || false;
 
-		console.log("CONFIG:", config);
+		console.log("CONFIG:" + JSON.stringify(config));
 
 		exec(
 			success || function() {},
