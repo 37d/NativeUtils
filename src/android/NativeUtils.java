@@ -8,6 +8,7 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.util.Log;
@@ -17,31 +18,50 @@ public class NativeUtils extends CordovaPlugin{
 	private static final String TAG = "NativeUtils";
 	
 	public static final String ACTION_GPS_STATE = "getGPSState";
-	//public static final String ACTION_NAV_TO_GPS_SETTINGS = "navToGPSSettings";
-	//public static final String ACTION_REQUIRE_GPS = "requireGPS";
+	public static final String ACTION_NAV_TO_GPS_SETTINGS = "navToGPSSettings";
+	public static final String ACTION_REQUIRE_GPS = "requireGPS";
 	
-	public static final String ENABLED = "enabled";
-	public static final String DISABLED = "disabled";
+	private Boolean dialog = false;
+	private final String DIALOG_TEXT = "GPS is Disabled. Enable It?";
+	private final String DIALOG_POS_TEXT = "Enable GPS";
+	private final String DIALOG_NEG_TEXT = "Cancel";
 	
 	LocationManager locationManager;
 	
-	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.cordova.CordovaPlugin#execute(java.lang.String, org.json.JSONArray, org.apache.cordova.CallbackContext)
+	 * Args: 
+	 * 0: Dialog: Show a Dialog if Disabled (Boolean)
+	 */
+	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 		Log.e(TAG, "Executing Action: " + action + " With Data: " + data);
+		
 		Boolean result = false;
+		this.dialog = data.getBoolean(0);
+		
 		Activity myActivity = this.cordova.getActivity();
 		
 		if(ACTION_GPS_STATE.equalsIgnoreCase(action)) {
             Log.e(TAG, "Getting GPS State");
 			locationManager = (LocationManager) myActivity.getSystemService(Context.LOCATION_SERVICE);
 			
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 Log.e(TAG, "GPS ENABLED");
-	            Toast.makeText(myActivity, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+	            Toast.makeText(myActivity, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
+	            
+	            callbackContext.success("enabled");
 	            result = true;
-	        }else{
+	        } else {
                  Log.e(TAG, "GPS DISABLED");
+                 
 	        	Toast.makeText(myActivity, "GPS is Not Enabled on your device", Toast.LENGTH_SHORT).show();
-	            showGPSDisabledAlertToUser();
+	        	
+	        	if(this.dialog) {
+	        		showGPSDisabledAlertToUser();
+	        	}
+	            
+	            callbackContext.success("disabled");
 	        	result = true;
 	        }
 		}
@@ -52,9 +72,9 @@ public class NativeUtils extends CordovaPlugin{
 		final Activity myActivity = this.cordova.getActivity();
 		
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(myActivity);
-        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+        alertDialogBuilder.setMessage(this.DIALOG_TEXT)
         .setCancelable(false)
-        .setPositiveButton("Goto Settings Page To Enable GPS",
+        .setPositiveButton(this.DIALOG_POS_TEXT,
                 new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
                 Intent callGPSSettingIntent = new Intent(
@@ -62,7 +82,7 @@ public class NativeUtils extends CordovaPlugin{
                 myActivity.startActivity(callGPSSettingIntent);
             }
         });
-        alertDialogBuilder.setNegativeButton("Cancel",
+        alertDialogBuilder.setNegativeButton(this.DIALOG_NEG_TEXT,
                 new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
                 dialog.cancel();
