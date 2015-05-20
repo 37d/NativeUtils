@@ -53,6 +53,8 @@ public class NativeUtils extends CordovaPlugin{
 	            callbackContext.success("enabled");
 	            result = true;
 	        } else {
+                 callbackContext.error("disabled");
+                
                  Log.e(TAG, "GPS DISABLED");
                  
 	        	//Toast.makeText(myActivity, "GPS is Not Enabled on your device", Toast.LENGTH_SHORT).show();
@@ -61,7 +63,6 @@ public class NativeUtils extends CordovaPlugin{
 	        		showGPSDisabledAlertToUser();
 	        	}
 	            
-	            callbackContext.success("disabled");
 	        	result = true;
 	        }
 		}
