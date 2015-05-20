@@ -1,13 +1,13 @@
 //
 //  NativeUtils.m
-//  
+//
 //
 //  Created by Paul Michael Wisdom on 5/20/15.
 //
 //
 
 #import "NativeUtils.h"
-#import <CoreLocation/CoreLocation.h>
+
 
 @implementation NativeUtils
 
@@ -22,7 +22,7 @@ BOOL showPrompt;
     CDVPluginResult* pluginResult = nil;
     
     //get command options
-    
+    NSLog(@"GETTING GPS STATE");
     showPrompt = [[command argumentAtIndex:0] boolValue];
     
     if([CLLocationManager locationServicesEnabled] &&
@@ -30,24 +30,24 @@ BOOL showPrompt;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         
         if(showPrompt) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"GPS DISABLED", @"" ) message:NSLocalizedString( @"To Continue Please Enable Your GPS", @"" ) preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GPS Disabled!"
+                                                            message:@"Please Enable Your GPS To Continue"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Settings"
+                                                  otherButtonTitles:nil];
             
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Cancel", @"" ) style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
-                                                            UIApplicationOpenSettingsURLString]];
-            }];
-            
-            [alertController addAction:cancelAction];
-            [alertController addAction:settingsAction];
-            
-            [self presentViewController:alertController animated:YES completion:nil];
+            [alert show];
         }
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: UIApplicationOpenSettingsURLString]];
 }
 
 @end
