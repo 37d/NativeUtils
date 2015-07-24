@@ -22,7 +22,7 @@ public class NativeUtils extends CordovaPlugin{
 	public static final String ACTION_REQUIRE_GPS = "requireGPS";
 	
 	private Boolean dialog = false;
-	private final String DIALOG_TEXT = "GPS is Disabled. Enable It?";
+	private final String DIALOG_TEXT = "GPS is Disabled. Enable It To Continue.";
 	private final String DIALOG_POS_TEXT = "Enable GPS";
 	private final String DIALOG_NEG_TEXT = "Cancel";
 	
@@ -50,10 +50,10 @@ public class NativeUtils extends CordovaPlugin{
                 Log.e(TAG, "GPS ENABLED");
 	            //Toast.makeText(myActivity, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
 	            
-	            callbackContext.success("enabled");
+	            callbackContext.success("Enabled");
 	            result = true;
 	        } else {
-                 callbackContext.error("disabled");
+                 callbackContext.success("Disabled");
                 
                  Log.e(TAG, "GPS DISABLED");
                  
